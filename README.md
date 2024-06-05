@@ -24,7 +24,11 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Simple ToDo App with NestJS](https://github.com/onetech-project/todo-nestjs)
+
+## Stack
+- NestJS
+- Mongoose
 
 ## Installation
 
@@ -45,6 +49,8 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+then open the [App](localhost:3000) or the [Swagger](localhost:3000/api) on your browser.
+
 ## Test
 
 ```bash
@@ -58,15 +64,10 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Faris Baros](https://onetech-project.github.io)
+- LinkedIn - [Faris Baros](https://www.linkedin.com/in/faris-baros-680b4613a/)
 
 ## License
 
