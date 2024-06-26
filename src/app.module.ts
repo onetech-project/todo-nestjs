@@ -7,6 +7,7 @@ import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { EncryptionService } from './helper/encryption/encryption.service';
 import { EncryptionModule } from './helper/encryption/encryption.module';
 import Modules from './module-list';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -16,12 +17,22 @@ import Modules from './module-list';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (config: ConfigService) => ({
+      useFactory: (config: ConfigService) => ({
         uri: config.get<string>('MONGODB_URI'), // Loaded from .ENV
       }),
     }),
     DevtoolsModule.register({
       http: process.env.NODE_ENV !== 'production',
+    }),
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config) => [
+        {
+          ttl: config.get('THROTTLE_TTL'),
+          limit: config.get('THROTTLE_LIMIT'),
+        },
+      ],
     }),
     EncryptionModule,
     ...Modules.map((x) => x.module),

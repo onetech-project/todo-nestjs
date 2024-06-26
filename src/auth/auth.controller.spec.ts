@@ -8,6 +8,7 @@ import { Model } from 'mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { UsersService } from '../users/users.service';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -18,6 +19,12 @@ describe('AuthController', () => {
         ConfigModule.forRoot({
           isGlobal: true,
         }),
+        ThrottlerModule.forRoot([
+          {
+            limit: 1,
+            ttl: 10000,
+          },
+        ]),
         JwtModule,
         EncryptionModule,
       ],

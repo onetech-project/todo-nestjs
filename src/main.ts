@@ -4,14 +4,13 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Modules from './module-list';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     snapshot: true,
+    cors: true,
   });
-
-  app.useGlobalPipes(new ValidationPipe());
-
   const configService = app.get<ConfigService>(ConfigService);
 
   Modules.forEach((x) => {
@@ -27,6 +26,9 @@ async function bootstrap() {
     });
     SwaggerModule.setup(`api-${x.name}`, app, document);
   });
+
+  app.useGlobalPipes(new ValidationPipe());
+  app.use(helmet());
 
   await app.listen(configService.get<string>('PORT') || 3000);
 }
