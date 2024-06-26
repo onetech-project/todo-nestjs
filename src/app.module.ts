@@ -6,8 +6,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { EncryptionService } from './helper/encryption/encryption.service';
 import { EncryptionModule } from './helper/encryption/encryption.module';
-import Modules from './module-list';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -35,7 +37,9 @@ import { ThrottlerModule } from '@nestjs/throttler';
       ],
     }),
     EncryptionModule,
-    ...Modules.map((x) => x.module),
+    AuthModule,
+    UsersModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService, EncryptionService],
