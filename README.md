@@ -13,6 +13,20 @@
 $ npm install
 ```
 
+## ENV FILE
+
+create a ```.env``` file with this content below:
+
+```
+MONGODB_URI=<MONGO URL>
+NODE_ENV=development|production
+JWT_SECRET=<JWT SECRET>
+JWT_EXPIRY=<JWT EXPIRY TIME IN SECOND e.g: 900s>
+PORT=<APP PORT>
+THROTTLE_TTL=<RATE LIMITTER TTL>
+THROTTLE_LIMIT=<RATE LIMITTER LIMIT IN MILLISECOND>
+```
+
 ## Running the app
 
 ```bash
