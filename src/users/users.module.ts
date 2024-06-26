@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
-import { TodoService } from './todo.service';
-import { TodoController } from './todo.controller';
+import { UsersService } from './users.service';
+import { UsersController } from './users.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ToDo, ToDoSchema } from './schemas/todo.schema';
+import { Users, UsersSchema } from './schemas/users.schema';
 import * as moment from 'moment';
+import { EncryptionModule } from '../helper/encryption/encryption.module';
 
 @Module({
   imports: [
+    EncryptionModule,
     MongooseModule.forFeatureAsync([
       {
-        name: ToDo.name,
+        name: Users.name,
         useFactory: () => {
-          const schema = ToDoSchema;
+          const schema = UsersSchema;
           schema.post(/^find/, function (doc) {
             if (doc) {
               (Array.isArray(doc) ? doc : [doc]).forEach((x) => {
@@ -30,7 +32,8 @@ import * as moment from 'moment';
       },
     ]),
   ],
-  controllers: [TodoController],
-  providers: [TodoService],
+  providers: [UsersService],
+  controllers: [UsersController],
+  exports: [UsersService],
 })
-export class TodoModule {}
+export class UsersModule {}

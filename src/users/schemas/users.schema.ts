@@ -1,18 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type ToDoDocument = HydratedDocument<ToDo>;
+export type UsersDocument = HydratedDocument<Users>;
 
 @Schema({ timestamps: true })
-export class ToDo {
+export class Users {
   @Prop({ required: true })
-  title: string;
+  name: string;
 
   @Prop({ required: true })
-  description: string;
+  password: string;
 
-  @Prop({ default: false })
-  isDone: boolean;
+  @Prop({ required: true })
+  email: string;
 
   @Prop()
   createdBy: string;
@@ -21,4 +21,4 @@ export class ToDo {
   updatedBy: string;
 }
 
-export const ToDoSchema = SchemaFactory.createForClass(ToDo);
+export const UsersSchema = SchemaFactory.createForClass(Users);
