@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  todo-nestjs-container:
+    build: .
+    image: todo-nestjs-image
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+      - NODE_ENV=development|production
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRY=900s
+      - PORT=8085
+      - THROTTLE_TTL=10
+      - THROTTLE_LIMIT=60000
+    ports:
+      - '8085:8085'
+    depends_on:
+      - mongodb
+    networks:
+      - node-network
+
+  mongodb:
+    image: mongo:noble
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata6:/data/db
+    networks:
+      - node-network
+
+volumes:
+  dbdata6:
+
+
+networks:
+  node-network:
+    driver: bridge
